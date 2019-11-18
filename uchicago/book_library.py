@@ -34,8 +34,8 @@ CONFIG = {
     'location': 'reg',  # one of ['reg', 'crerar']
     'date': '11/25/2019',
     'start_time': '18',  # army time
-    'end_time': '19.5' 
-}   
+    'end_time': '19.5'
+}
 
 
 BOOK_ROOM_JSON = {
@@ -69,9 +69,11 @@ def base_driver(screen=None):
 
     return driver
 
+
 def click_go_to_date(driver):
-    btn_class = 'fc-goToDate-button' # fc-button fc-button-primary'
-    cal_class = 'datepicker' # datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top'
+    btn_class = 'fc-goToDate-button'  # fc-button fc-button-primary'
+    # datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top'
+    cal_class = 'datepicker'
     btn = driver.find_element_by_class_name(btn_class)
     btn.click()
     cal = driver.find_element_by_class_name(cal_class)
@@ -94,6 +96,7 @@ def get_data_date(v=False):
         print(epoch_time)
     return epoch_time
 
+
 def get_url():
     if CONFIG['location'] == 'reg':
         url = ROOT + REG_SFX
@@ -101,11 +104,13 @@ def get_url():
         url = ROOT + CRERAR_SFX
     return url
 
+
 def init_browser():
     url = get_url()
     driver = base_driver()
     driver.get(url)
     return driver
+
 
 def main():
     '''
@@ -116,9 +121,6 @@ def main():
 
     click_go_to_date(d)
     time.sleep(3)
-
-
-
 
 
 if __name__ == "__main__":
