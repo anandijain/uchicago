@@ -1,6 +1,7 @@
 # repo for living life at uchicago
 
 Functionality:
+
     1. book rooms for reg, crerar
     2. api for retrieving canvas and my.uchicago.edu info
     3. graphql database for course catalog using uchicago
