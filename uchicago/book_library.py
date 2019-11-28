@@ -1,4 +1,4 @@
-'''
+"""
 allows one to book a room 
 
 auth is going to be weird
@@ -18,23 +18,23 @@ ideally https://www.lib.uchicago.edu/api/v2/pages/ send direct http requests
     "title": "Spaces & Services"
 },
 
-'''
+"""
 import time
 import datetime
 
 import requests as r
 from selenium import webdriver
 
-API_ROOT = 'https://www.lib.uchicago.edu/api/v2/pages/'
-ROOT = 'https://rooms.lib.uchicago.edu/'
-REG_SFX = 'reserve/regensteingroupstudies'
-CRERAR_SFX = '/reserve/crerar'
+API_ROOT = "https://www.lib.uchicago.edu/api/v2/pages/"
+ROOT = "https://rooms.lib.uchicago.edu/"
+REG_SFX = "reserve/regensteingroupstudies"
+CRERAR_SFX = "/reserve/crerar"
 
 CONFIG = {
-    'location': 'reg',  # one of ['reg', 'crerar']
-    'date': '11/25/2019',
-    'start_time': '18',  # army time
-    'end_time': '19.5'
+    "location": "reg",  # one of ['reg', 'crerar']
+    "date": "11/25/2019",
+    "start_time": "18",  # army time
+    "end_time": "19.5",
 }
 
 
@@ -45,16 +45,16 @@ BOOK_ROOM_JSON = {
         "detail_url": "https://www.lib.uchicago.edu/api/v2/pages/6474/",
         "html_url": "https://www.lib.uchicago.edu/reg/reg-spaces/book-room/",
         "slug": "book-room",
-        "first_published_at": "2017-05-10T14:16:30.503876-05:00"
+        "first_published_at": "2017-05-10T14:16:30.503876-05:00",
     },
-    "title": "Book a Room"
+    "title": "Book a Room",
 }
 
 
 def base_driver(screen=None):
-    '''
+    """
     screen is either None, 'full', or 'min'
-    '''
+    """
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito")
 
@@ -62,22 +62,22 @@ def base_driver(screen=None):
 
     if not screen:
         pass
-    elif screen == 'full':
+    elif screen == "full":
         driver.maximize_window()
-    elif screen == 'min':
+    elif screen == "min":
         driver.minimize_window()
 
     return driver
 
 
 def click_go_to_date(driver):
-    btn_class = 'fc-goToDate-button'  # fc-button fc-button-primary'
+    btn_class = "fc-goToDate-button"  # fc-button fc-button-primary'
     # datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top'
-    cal_class = 'datepicker'
+    cal_class = "datepicker"
     btn = driver.find_element_by_class_name(btn_class)
     btn.click()
     cal = driver.find_element_by_class_name(cal_class)
-    all_dates = cal.find_elements_by_tag_name('data-date')
+    all_dates = cal.find_elements_by_tag_name("data-date")
     for d in all_dates:
         print(d)
 
@@ -88,8 +88,8 @@ def unix_time_millis(dt):
 
 
 def get_data_date(v=False):
-    date_to_get = CONFIG['date']
-    dt = datetime.datetime.strptime(date_to_get, '%m/%d/%Y')
+    date_to_get = CONFIG["date"]
+    dt = datetime.datetime.strptime(date_to_get, "%m/%d/%Y")
     epoch_time = unix_time_millis(dt)
     if v:
         print(dt)
@@ -98,7 +98,7 @@ def get_data_date(v=False):
 
 
 def get_url():
-    if CONFIG['location'] == 'reg':
+    if CONFIG["location"] == "reg":
         url = ROOT + REG_SFX
     else:
         url = ROOT + CRERAR_SFX
@@ -113,9 +113,9 @@ def init_browser():
 
 
 def main():
-    '''
+    """
 
-    '''
+    """
     d = init_browser()
     data_date = get_data_date()
 
